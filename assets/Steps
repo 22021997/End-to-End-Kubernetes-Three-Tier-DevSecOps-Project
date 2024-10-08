@@ -1,0 +1,39 @@
+MERN deploy app
+
+1. Launch t3.large EC2 machine of ubuntu  
+by opening 8080 and 9090 ports on it and installing kubectl, SonarQube , docker , terraform, aws cli , trivy, Jenkins.
+
+2. Open the Jenkins GUI on port 8080 and install plugins like terraform , aws cred, pipeline: AWS stageview , pipeline :AWS, docker , docker pipeline, docker common,docker api, nodejs, owasp, sonarqube  etc.
+
+3. Configure Terraform path in Tools. command on whereis terraform on Jenkins server ec2 and add aws-creds with access key and access secret key in Jenkins 
+
+4. Make pipeline and build it by creating the dynamo db table mentioned in terraform backend file.
+
+5. After building the pipeline our cluster will be created. It will take 20 mins atleast . Please create jump server while our build is creating the infrastructure.
+
+6. In Jump server run aws configure  and add eks cluster context with command : aws eks update-kubeconfig --region us-east-1 --name dev-medium-eks-cluster
+
+7. After downloading the iam policy(AWSLoadBalancerControllerIAMPolicy) for AWSLoadBalancerController , Create service account which can create aws-load-balancer-controller which in turn can create load balancer controller. After add eks repo via helm charts to deploy the AWS Load Balancer Controller.
+
+
+
+helm repo add eks https://aws.github.io/eks-charts
+helm repo update eks
+helm install aws-load-balancer-controller eks/aws-load-balancer-controller -n kube-system --set clusterName=dev-medium-eks-cluster --set serviceAccount.create=false --set serviceAccount.name=aws-load-balancer-controller
+
+
+
+8. After installing alb controller , create namespace argocd in jumpserver and download argocd via helm.
+
+
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/v2.4.7/manifests/install.yaml
+
+
+9. Got to SonarQube and generate token and create webhook by url : http://54.89.184.102:8080/sonarqube-webhook/
+
+10. Go to Jenkins and configure sonarwube cred by sonar token using secret text and add aws account_id, GitHub pat via secret text and github-app pat via username and password 
+
+
+11. confifure all the tools in Jenkins.
+
+12. create and pipelines of frontend ,backend and build it.

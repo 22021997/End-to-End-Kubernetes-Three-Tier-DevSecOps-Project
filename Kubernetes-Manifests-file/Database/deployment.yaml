@@ -13,6 +13,15 @@ spec:
       labels: 
         app: mongodb
     spec: 
+       affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: role
+                operator: In
+                values:
+                - backend
       containers:
       - name: mon
         image: mongo:4.4.6

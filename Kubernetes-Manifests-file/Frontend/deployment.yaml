@@ -29,7 +29,7 @@ spec:
               - key: role
                 operator: In
                 values:
-                - other
+                - frontend
       imagePullSecrets:
       - name: ecr-registry-secret
       containers:

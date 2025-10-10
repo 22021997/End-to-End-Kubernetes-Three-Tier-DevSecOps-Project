@@ -21,15 +21,6 @@ spec:
       labels:
         role: frontend
     spec: 
-      affinity:
-        nodeAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-            - matchExpressions:
-              - key: role
-                operator: In
-                values:
-                - frontend
       imagePullSecrets:
       - name: ecr-registry-secret
       containers:

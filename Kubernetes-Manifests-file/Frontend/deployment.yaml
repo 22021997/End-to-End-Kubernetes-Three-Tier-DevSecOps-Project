@@ -23,7 +23,7 @@ spec:
     spec: 
       affinity:
         nodeAffinity:
-          prefferedDuringSchedulingIgnoredDuringExecution:
+          preferredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
             - matchExpressions:
               - key: role

@@ -23,7 +23,7 @@ spec:
     spec: 
       affinity:
         nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
+          prefferedDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
             - matchExpressions:
               - key: role
@@ -34,7 +34,7 @@ spec:
       - name: ecr-registry-secret
       containers:
       - name: frontend
-        image: 185798101578.dkr.ecr.us-east-1.amazonaws.com/frontend:5
+        image: 083308938161.dkr.ecr.us-east-1.amazonaws.com/frontend:5
         imagePullPolicy: Always
         env:
           - name: REACT_APP_BACKEND_URL
